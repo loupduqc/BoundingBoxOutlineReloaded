@@ -1,0 +1,5 @@
+name: BBOutlineReloaded
+version: ${project.version}
+main: com.irtimaled.bbor.bukkit.BukkitMod
+api-version: 1.13
+load: STARTUP

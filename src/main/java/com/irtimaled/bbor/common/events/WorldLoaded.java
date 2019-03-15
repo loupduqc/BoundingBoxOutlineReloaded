@@ -1,7 +1,7 @@
 package com.irtimaled.bbor.common.events;
 
-import net.minecraft.world.WorldServer;
-import net.minecraft.world.storage.WorldInfo;
+import net.minecraft.server.v1_13_R2.WorldData;
+import net.minecraft.server.v1_13_R2.WorldServer;
 
 public class WorldLoaded {
     private final int dimensionId;
@@ -10,11 +10,11 @@ public class WorldLoaded {
     private final int spawnZ;
 
     public WorldLoaded(WorldServer world) {
-        WorldInfo info = world.getWorldInfo();
-        this.dimensionId = world.getDimension().getType().getId();
+        WorldData info = world.getWorldData();
+        this.dimensionId = world.dimension.getDimensionID();
         this.seed = info.getSeed();
-        this.spawnX = info.getSpawnX();
-        this.spawnZ = info.getSpawnZ();
+        this.spawnX = info.b();
+        this.spawnZ = info.d();
     }
 
     public int getDimensionId() {

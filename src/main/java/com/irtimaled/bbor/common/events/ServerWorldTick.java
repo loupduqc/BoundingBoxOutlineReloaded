@@ -1,6 +1,6 @@
 package com.irtimaled.bbor.common.events;
 
-import net.minecraft.world.WorldServer;
+import net.minecraft.server.v1_13_R2.WorldServer;
 
 public class ServerWorldTick {
     private final int dimensionId;
@@ -8,7 +8,7 @@ public class ServerWorldTick {
 
     public ServerWorldTick(WorldServer world) {
         this.world = world;
-        this.dimensionId = world.getDimension().getType().getId();
+        this.dimensionId = world.dimension.getDimensionID();
     }
 
     public WorldServer getWorld() {

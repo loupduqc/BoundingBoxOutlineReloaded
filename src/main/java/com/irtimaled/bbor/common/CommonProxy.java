@@ -147,7 +147,7 @@ public class CommonProxy {
         }
     }
 
-    protected void removeBoundingBox(int dimensionId, AbstractBoundingBox key) {
+    private void removeBoundingBox(int dimensionId, AbstractBoundingBox key) {
         BoundingBoxCache cache = getCache(dimensionId);
         if (cache == null) return;
 
@@ -177,15 +177,15 @@ public class CommonProxy {
         villageProcessor.process(event.getWorld());
     }
 
-    protected BoundingBoxCache getCache(int dimensionId) {
+    private BoundingBoxCache getCache(int dimensionId) {
         return dimensionCache.get(dimensionId);
     }
 
-    protected BoundingBoxCache getOrCreateCache(int dimensionId) {
+    private BoundingBoxCache getOrCreateCache(int dimensionId) {
         return dimensionCache.computeIfAbsent(dimensionId, dt -> new BoundingBoxCache());
     }
 
-    protected void clearCaches() {
+    public void clearCaches() {
         for (VillageProcessor villageProcessor : villageProcessors.values()) {
             villageProcessor.clear();
         }

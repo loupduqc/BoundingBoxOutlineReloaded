@@ -2,7 +2,7 @@ package com.irtimaled.bbor.common.models;
 
 import com.irtimaled.bbor.common.MathHelper;
 import com.irtimaled.bbor.common.TypeHelper;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.server.v1_13_R2.BlockPosition;
 
 public class Coords {
     private final int x;
@@ -21,7 +21,7 @@ public class Coords {
         this.z = MathHelper.floor(z);
     }
 
-    public Coords(BlockPos blockPos) {
+    public Coords(BlockPosition blockPos) {
         this(blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 

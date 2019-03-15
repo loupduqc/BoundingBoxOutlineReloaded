@@ -5,15 +5,7 @@ import com.irtimaled.bbor.common.events.*;
 import com.irtimaled.bbor.common.models.Coords;
 import com.irtimaled.bbor.common.models.ServerPlayer;
 import com.irtimaled.bbor.config.ConfigManager;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockMobSpawner;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.network.NetHandlerPlayServer;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
-import net.minecraft.world.chunk.Chunk;
+import net.minecraft.server.v1_13_R2.*;
 
 import java.io.File;
 import java.util.Collection;
@@ -45,27 +37,21 @@ public class CommonInterop {
         EventBus.publish(new ServerWorldTick(worldServer));
     }
 
-    public static void playerLoggedIn(EntityPlayerMP player) {
-        NetHandlerPlayServer connection = player.connection;
-        if (connection == null) return;
-
-        NetworkManager networkManager = connection.netManager;
-        if (networkManager.isLocalChannel()) return;
-
+    public static void playerLoggedIn(EntityPlayer player) {
         EventBus.publish(new PlayerLoggedIn(new ServerPlayer(player)));
     }
 
-    public static void playerLoggedOut(EntityPlayerMP player) {
-        EventBus.publish(new PlayerLoggedOut(player.getEntityId()));
+    public static void playerLoggedOut(EntityPlayer player) {
+        EventBus.publish(new PlayerLoggedOut(player.getId()));
     }
 
-    public static void playerSubscribed(EntityPlayerMP player) {
-        EventBus.publish(new PlayerSubscribed(player.getEntityId(), new ServerPlayer(player)));
+    public static void playerSubscribed(EntityPlayer player) {
+        EventBus.publish(new PlayerSubscribed(player.getId(), new ServerPlayer(player)));
     }
 
-    public static void tryHarvestBlock(Block block, BlockPos pos, World world) {
+    public static void tryHarvestBlock(Block block, BlockPosition pos, WorldServer world) {
         if (block instanceof BlockMobSpawner) {
-            EventBus.publish(new MobSpawnerBroken(world.dimension.getType().getId(), new Coords(pos)));
+            EventBus.publish(new MobSpawnerBroken(world.dimension.getDimensionID(), new Coords(pos)));
         }
     }
 }

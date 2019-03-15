@@ -7,12 +7,7 @@ import com.irtimaled.bbor.common.models.AbstractBoundingBox;
 import com.irtimaled.bbor.common.models.BoundingBoxCuboid;
 import com.irtimaled.bbor.common.models.BoundingBoxMobSpawner;
 import com.irtimaled.bbor.common.models.Coords;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityMobSpawner;
-import net.minecraft.util.math.MutableBoundingBox;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.gen.feature.structure.StructurePiece;
-import net.minecraft.world.gen.feature.structure.StructureStart;
+import net.minecraft.server.v1_13_R2.*;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -32,38 +27,38 @@ public abstract class AbstractChunkProcessor {
         StructureStart structureStart = structureMap.get(type.getName());
         if (structureStart == null) return;
 
-        MutableBoundingBox bb = structureStart.getBoundingBox();
+        StructureBoundingBox bb = structureStart.c();
         if (bb == null) return;
 
         AbstractBoundingBox boundingBox = buildStructure(bb, type);
         if (boundingBoxCache.isCached(boundingBox)) return;
 
         Set<AbstractBoundingBox> structureBoundingBoxes = new HashSet<>();
-        for (StructurePiece structureComponent : structureStart.getComponents()) {
-            structureBoundingBoxes.add(buildStructure(structureComponent.getBoundingBox(), type));
+        for (StructurePiece structureComponent : structureStart.d()) {
+            structureBoundingBoxes.add(buildStructure(structureComponent.d(), type));
         }
         boundingBoxCache.addBoundingBoxes(boundingBox, structureBoundingBoxes);
     }
 
-    private AbstractBoundingBox buildStructure(MutableBoundingBox bb, BoundingBoxType type) {
-        Coords min = new Coords(bb.minX, bb.minY, bb.minZ);
-        Coords max = new Coords(bb.maxX, bb.maxY, bb.maxZ);
+    private AbstractBoundingBox buildStructure(StructureBoundingBox bb, BoundingBoxType type) {
+        Coords min = new Coords(bb.a, bb.b, bb.c);
+        Coords max = new Coords(bb.d, bb.e, bb.f);
         return BoundingBoxCuboid.from(min, max, type);
     }
 
     private void addMobSpawners(Chunk chunk) {
-        Collection<TileEntity> tileEntities = chunk.getTileEntityMap().values();
+        Collection<TileEntity> tileEntities = chunk.getTileEntities().values();
         for (TileEntity tileEntity : tileEntities) {
             TileEntityMobSpawner spawner = TypeHelper.as(tileEntity, TileEntityMobSpawner.class);
             if (spawner != null) {
-                Coords coords = new Coords(spawner.getPos());
+                Coords coords = new Coords(spawner.getPosition());
                 boundingBoxCache.addBoundingBox(BoundingBoxMobSpawner.from(coords));
             }
         }
     }
 
     public void process(Chunk chunk) {
-        Map<String, StructureStart> structureMap = chunk.getStructureStarts();
+        Map<String, StructureStart> structureMap = chunk.e();
         if (structureMap.size() > 0) {
             supportedStructures.forEach(type -> addStructures(type, structureMap));
         }

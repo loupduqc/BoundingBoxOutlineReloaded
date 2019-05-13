@@ -1,7 +1,7 @@
 package com.irtimaled.bbor.common.events;
 
-import net.minecraft.server.v1_13_R2.Chunk;
-import net.minecraft.server.v1_13_R2.WorldServer;
+import net.minecraft.server.v1_14_R1.Chunk;
+import net.minecraft.server.v1_14_R1.WorldServer;
 
 public class ChunkLoaded {
     private final Chunk chunk;
@@ -9,7 +9,7 @@ public class ChunkLoaded {
 
     public ChunkLoaded(Chunk chunk) {
         this.chunk = chunk;
-        this.dimensionId = ((WorldServer) chunk.getWorld()).dimension.getDimensionID();
+        this.dimensionId = ((WorldServer) chunk.getWorld()).worldProvider.getDimensionManager().getDimensionID();
     }
 
     public Chunk getChunk() {

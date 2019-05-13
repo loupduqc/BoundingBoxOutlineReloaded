@@ -5,7 +5,7 @@ import com.irtimaled.bbor.common.events.*;
 import com.irtimaled.bbor.common.models.Coords;
 import com.irtimaled.bbor.common.models.ServerPlayer;
 import com.irtimaled.bbor.config.ConfigManager;
-import net.minecraft.server.v1_13_R2.*;
+import net.minecraft.server.v1_14_R1.*;
 
 import java.io.File;
 import java.util.Collection;
@@ -33,10 +33,6 @@ public class CommonInterop {
         EventBus.publish(new ServerTick());
     }
 
-    public static void worldTick(WorldServer worldServer) {
-        EventBus.publish(new ServerWorldTick(worldServer));
-    }
-
     public static void playerLoggedIn(EntityPlayer player) {
         EventBus.publish(new PlayerLoggedIn(new ServerPlayer(player)));
     }
@@ -51,7 +47,7 @@ public class CommonInterop {
 
     public static void tryHarvestBlock(Block block, BlockPosition pos, WorldServer world) {
         if (block instanceof BlockMobSpawner) {
-            EventBus.publish(new MobSpawnerBroken(world.dimension.getDimensionID(), new Coords(pos)));
+            EventBus.publish(new MobSpawnerBroken(world.worldProvider.getDimensionManager().getDimensionID(), new Coords(pos)));
         }
     }
 }

@@ -19,7 +19,7 @@ public final class BukkitMod extends JavaPlugin {
     @Override
     public void onEnable() {
         events.enable();
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> events.onTick(getServer().getWorlds()), 11, 11);
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, events::onTick, 11, 11);
         getServer().getPluginManager().registerEvents(events, this);
         getServer().getMessenger().registerIncomingPluginChannel(this, SubscribeToServer.NAME, events);
     }

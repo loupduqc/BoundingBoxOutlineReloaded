@@ -2,14 +2,14 @@ package com.irtimaled.bbor.bukkit;
 
 import com.irtimaled.bbor.common.interop.CommonInterop;
 import com.irtimaled.bbor.common.messages.SubscribeToServer;
-import net.minecraft.server.v1_13_R2.WorldServer;
+import net.minecraft.server.v1_14_R1.WorldServer;
 import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_13_R2.CraftChunk;
-import org.bukkit.craftbukkit.v1_13_R2.CraftWorld;
-import org.bukkit.craftbukkit.v1_13_R2.block.CraftBlock;
-import org.bukkit.craftbukkit.v1_13_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_14_R1.CraftChunk;
+import org.bukkit.craftbukkit.v1_14_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_14_R1.block.CraftBlock;
+import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,8 +19,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.plugin.messaging.PluginMessageListener;
-
-import java.util.List;
 
 public class Events implements Listener, PluginMessageListener {
     private boolean active;
@@ -73,14 +71,8 @@ public class Events implements Listener, PluginMessageListener {
         this.active = false;
     }
 
-    void onTick(List<World> worlds) {
+    void onTick() {
         if (!active) return;
-
-        for (World world : worlds) {
-            if (world instanceof CraftWorld) {
-                CommonInterop.worldTick(((CraftWorld) world).getHandle());
-            }
-        }
 
         CommonInterop.tick();
     }

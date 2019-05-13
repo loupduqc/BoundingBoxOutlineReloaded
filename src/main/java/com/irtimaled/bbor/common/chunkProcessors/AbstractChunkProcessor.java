@@ -7,7 +7,7 @@ import com.irtimaled.bbor.common.models.AbstractBoundingBox;
 import com.irtimaled.bbor.common.models.BoundingBoxCuboid;
 import com.irtimaled.bbor.common.models.BoundingBoxMobSpawner;
 import com.irtimaled.bbor.common.models.Coords;
-import net.minecraft.server.v1_13_R2.*;
+import net.minecraft.server.v1_14_R1.*;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -35,7 +35,7 @@ public abstract class AbstractChunkProcessor {
 
         Set<AbstractBoundingBox> structureBoundingBoxes = new HashSet<>();
         for (StructurePiece structureComponent : structureStart.d()) {
-            structureBoundingBoxes.add(buildStructure(structureComponent.d(), type));
+            structureBoundingBoxes.add(buildStructure(structureComponent.g(), type));
         }
         boundingBoxCache.addBoundingBoxes(boundingBox, structureBoundingBoxes);
     }
@@ -58,7 +58,7 @@ public abstract class AbstractChunkProcessor {
     }
 
     public void process(Chunk chunk) {
-        Map<String, StructureStart> structureMap = chunk.e();
+        Map<String, StructureStart> structureMap = chunk.h();
         if (structureMap.size() > 0) {
             supportedStructures.forEach(type -> addStructures(type, structureMap));
         }

@@ -25,7 +25,7 @@ public class SettingsScreen extends Screen {
 
     private Set<IRenderableControl> controls = new HashSet<>();
 
-    SettingsScreen(Screen lastScreen, int tabIndex) {
+    public SettingsScreen(Screen lastScreen, int tabIndex) {
         super(new StringTextComponent("Bounding Box Outline Reloaded"));
         this.lastScreen = lastScreen;
         this.tabIndex = tabIndex;

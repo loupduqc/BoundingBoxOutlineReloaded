@@ -7,7 +7,7 @@ import com.irtimaled.bbor.common.Dimensions;
 import com.irtimaled.bbor.common.MathHelper;
 import com.irtimaled.bbor.common.models.*;
 import com.irtimaled.bbor.config.ConfigManager;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.MinecraftClient;
 import org.lwjgl.opengl.GL11;
 
 import java.util.*;
@@ -120,7 +120,7 @@ public class ClientRenderer {
     }
 
     private int getRenderDistanceChunks() {
-        return Minecraft.getInstance().gameSettings.renderDistanceChunks;
+        return MinecraftClient.getInstance().options.viewDistance;
     }
 
     private boolean isSlimeChunk(int chunkX, int chunkZ) {

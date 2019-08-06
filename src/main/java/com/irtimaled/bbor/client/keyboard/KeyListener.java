@@ -1,20 +1,20 @@
 package com.irtimaled.bbor.client.keyboard;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.client.util.InputMappings;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.options.KeyBinding;
+import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class KeyListener {
-    private static final Minecraft minecraft = Minecraft.getInstance();
+    private static final MinecraftClient minecraft = MinecraftClient.getInstance();
     private static long mainWindowHandle;
     private static Set<Key> keys = new HashSet<>();
 
     public static void init() {
-        mainWindowHandle = minecraft.mainWindow.getHandle();
+        mainWindowHandle = minecraft.window.getHandle();
         GLFW.glfwSetKeyCallback(mainWindowHandle, KeyListener::onKeyEvent);
     }
 
@@ -25,8 +25,8 @@ public class KeyListener {
     }
 
     private static void onKeyEvent(long windowHandle, int keyCode, int scanCode, int action, int modifiers) {
-        if (windowHandle == mainWindowHandle && minecraft.currentScreen == null && keyCode != -1 && !InputMappings.isKeyDown(mainWindowHandle, 292)) {
-            InputMappings.Input input = InputMappings.getInputByCode(keyCode, scanCode);
+        if (windowHandle == mainWindowHandle && minecraft.currentScreen == null && keyCode != -1 && !InputUtil.isKeyPressed(mainWindowHandle, 292)) {
+            InputUtil.KeyCode input = InputUtil.getKeyCode(keyCode, scanCode);
             for (Key key : keys) {
                 if (key.getInput() == input) {
                     switch (action) {
@@ -46,7 +46,7 @@ public class KeyListener {
                 }
             }
         }
-        minecraft.keyboardListener.onKeyEvent(windowHandle, keyCode, scanCode, action, modifiers);
+        minecraft.keyboard.onKey(windowHandle, keyCode, scanCode, action, modifiers);
     }
 
     public static KeyBinding[] keyBindings() {

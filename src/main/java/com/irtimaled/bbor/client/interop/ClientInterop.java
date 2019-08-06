@@ -6,7 +6,7 @@ import com.irtimaled.bbor.client.events.Render;
 import com.irtimaled.bbor.client.events.SeedCommandTyped;
 import com.irtimaled.bbor.client.events.UpdateWorldSpawnReceived;
 import com.irtimaled.bbor.common.EventBus;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 
 public class ClientInterop {
@@ -16,7 +16,7 @@ public class ClientInterop {
 
     public static void render(float partialTicks, ClientPlayerEntity player) {
         PlayerCoords.setPlayerPosition(partialTicks, player);
-        EventBus.publish(new Render(player.dimension.getId()));
+        EventBus.publish(new Render(player.dimension.getRawId()));
     }
 
     public static boolean interceptChatMessage(String message) {

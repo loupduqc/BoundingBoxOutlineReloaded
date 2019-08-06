@@ -1,10 +1,10 @@
 package com.irtimaled.bbor.client.keyboard;
 
-import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.client.util.InputMappings;
+import net.minecraft.client.options.KeyBinding;
+import net.minecraft.client.util.InputUtil;
 
 public class Key extends KeyBinding {
-    private InputMappings.Input input;
+    private InputUtil.KeyCode input;
     private KeyHandler onKeyPress;
     private KeyHandler onLongKeyPress;
     private int longPressDuration;
@@ -24,17 +24,19 @@ public class Key extends KeyBinding {
         return this;
     }
 
-    InputMappings.Input getInput() {
+    InputUtil.KeyCode getInput() {
         if (input == null)
-            return getDefault();
+            return getDefaultKeyCode();
         return input;
     }
 
+
     @Override
-    public void bind(InputMappings.Input input) {
+    public void setKeyCode(InputUtil.KeyCode input) {
         this.input = input;
-        super.bind(input);
+        super.setKeyCode(input);
     }
+
 
     private int pressDuration = 0;
 

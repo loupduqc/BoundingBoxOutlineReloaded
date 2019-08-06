@@ -9,9 +9,9 @@ public class PlayerCoords {
     private static double activeY;
 
     public static void setPlayerPosition(double partialTicks, PlayerEntity entityPlayer) {
-        x = entityPlayer.lastTickPosX + (entityPlayer.posX - entityPlayer.lastTickPosX) * partialTicks;
-        y = entityPlayer.lastTickPosY + (entityPlayer.posY - entityPlayer.lastTickPosY) * partialTicks;
-        z = entityPlayer.lastTickPosZ + (entityPlayer.posZ - entityPlayer.lastTickPosZ) * partialTicks;
+        x = entityPlayer.prevRenderX + (entityPlayer.x - entityPlayer.prevRenderX) * partialTicks;
+        y = entityPlayer.prevRenderY + (entityPlayer.y - entityPlayer.prevRenderY) * partialTicks;
+        z = entityPlayer.prevRenderZ + (entityPlayer.z - entityPlayer.prevRenderZ) * partialTicks;
     }
 
     static void setActiveY() {

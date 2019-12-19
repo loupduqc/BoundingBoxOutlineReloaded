@@ -7,7 +7,7 @@ import com.irtimaled.bbor.common.models.AbstractBoundingBox;
 import com.irtimaled.bbor.common.models.BoundingBoxCuboid;
 import com.irtimaled.bbor.common.models.BoundingBoxMobSpawner;
 import com.irtimaled.bbor.common.models.Coords;
-import net.minecraft.server.v1_14_R1.*;
+import net.minecraft.server.v1_15_R1.*;
 
 import java.util.Collection;
 import java.util.HashSet;

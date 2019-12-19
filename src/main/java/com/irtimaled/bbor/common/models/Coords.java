@@ -2,7 +2,7 @@ package com.irtimaled.bbor.common.models;
 
 import com.irtimaled.bbor.common.MathHelper;
 import com.irtimaled.bbor.common.TypeHelper;
-import net.minecraft.server.v1_14_R1.BlockPosition;
+import net.minecraft.server.v1_15_R1.BlockPosition;
 
 public class Coords {
     private final int x;

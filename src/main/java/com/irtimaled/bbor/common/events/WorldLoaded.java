@@ -1,7 +1,7 @@
 package com.irtimaled.bbor.common.events;
 
-import net.minecraft.server.v1_14_R1.WorldData;
-import net.minecraft.server.v1_14_R1.WorldServer;
+import net.minecraft.server.v1_15_R1.WorldData;
+import net.minecraft.server.v1_15_R1.WorldServer;
 
 public class WorldLoaded {
     private final int dimensionId;

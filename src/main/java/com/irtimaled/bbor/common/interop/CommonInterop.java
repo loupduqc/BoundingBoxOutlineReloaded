@@ -5,7 +5,7 @@ import com.irtimaled.bbor.common.events.*;
 import com.irtimaled.bbor.common.models.Coords;
 import com.irtimaled.bbor.common.models.ServerPlayer;
 import com.irtimaled.bbor.config.ConfigManager;
-import net.minecraft.server.v1_14_R1.*;
+import net.minecraft.server.v1_15_R1.*;
 
 import java.io.File;
 import java.util.Collection;

@@ -42,7 +42,7 @@ public class SpawningSphereHelper {
                 if(!isWithinSpawnSphere(x, (int) Math.round(center.getY()), z, center)) continue;// Doesn't check the biome if it's out of the sphere anyway
                 if(!isBiomeHostileSpawnable(world, new BlockPos(x, 1, z))) continue;
                 for (int y = minY; y < maxY; y++) {
-                    if (isWithinSpawnSphere(x, y, z, center) && isSpawnable(new BlockPos(x, y, z), world) && blockProcessor.process(x, y, z)) {
+                    if (isWithinSpawnSphere(x, y, z, center) && isSpawnableAtNight(new BlockPos(x, y, z), world) && blockProcessor.process(x, y, z)) {
                         processed++;
                     }
                 }
@@ -85,5 +85,21 @@ public class SpawningSphereHelper {
                 collisionShape.getEnd(Direction.Axis.Y) <= 0 &&
                 upperBlockState.getFluidState().isEmpty() &&
                 (isNether || world.func_226658_a_(LightType.BLOCK, pos) <= 7);
+    }
+    
+    private static boolean isSpawnableAtNight(BlockPos pos, ClientWorld world) {
+        BlockPos down = pos.down();
+        BlockState spawnBlockState = world.getBlockState(down);
+        BlockState upperBlockState = world.getBlockState(pos);
+        VoxelShape collisionShape = upperBlockState.getCollisionShape(world, pos);
+
+        boolean isNether = world.dimension.isNether();
+        return spawnBlockState.canEntitySpawn(world, down, isNether ? EntityType.ZOMBIE_PIGMAN : entityType) &&
+                !Block.doesSideFillSquare(collisionShape, Direction.UP) &&
+                !upperBlockState.canProvidePower() &&
+                !upperBlockState.isIn(BlockTags.RAILS) &&
+                collisionShape.getEnd(Direction.Axis.Y) <= 0 &&
+                upperBlockState.getFluidState().isEmpty() &&
+                (isNether || (world.func_226658_a_(LightType.BLOCK, pos) <= 7 && world.func_226658_a_(LightType.SKY, pos) > 7));
     }
 }
